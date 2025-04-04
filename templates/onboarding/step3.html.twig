@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Step 3: Payment Information</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.cardNumber) }}
+    {{ form_row(form.expirationDate) }}
+    {{ form_row(form.cvv) }}
+    <button type="submit" class="btn btn-primary">Next</button>
+    <a href="{{ path('onboarding', {'step': 2}) }}" class="btn btn-secondary">Back</a>
+    {{ form_end(form) }}
+{% endblock %}

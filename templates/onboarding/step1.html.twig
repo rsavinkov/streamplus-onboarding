@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Step 1: User Information</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.subscriptionType) }}
+    <button type="submit" class="btn btn-primary">Next</button>
+    {{ form_end(form) }}
+{% endblock %}
