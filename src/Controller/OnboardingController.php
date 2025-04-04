@@ -79,7 +79,7 @@ final class OnboardingController extends AbstractController
         $address->setCountry($data['country']);
         $user->setAddress($address);
 
-        if ($data['subscriptionType'] === 'premium') {
+        if ($data['subscriptionType'] === SubscriptionType::PREMIUM) {
             $payment = new PaymentDetails();
             $payment->setCardNumber($data['cardNumber']);
             $payment->setExpirationDate($data['expirationDate']);
