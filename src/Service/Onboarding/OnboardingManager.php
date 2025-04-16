@@ -111,7 +111,7 @@ class OnboardingManager
             $payment->setCardNumber($data['cardNumber']);
             $payment->setExpirationDate($data['expirationDate']);
             $payment->setCvv($data['cvv']);
-            $user->setPayment($payment);
+            $user->addPayment($payment);
         }
 
         $this->em->persist($user);

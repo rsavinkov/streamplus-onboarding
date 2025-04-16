@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\SubscriptionType;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -32,8 +34,13 @@ class User
     #[ORM\OneToOne(targetEntity: Address::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Address $address = null;
 
-    #[ORM\OneToOne(targetEntity: PaymentDetails::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?PaymentDetails $payment = null;
+    #[ORM\OneToMany(targetEntity: PaymentDetails::class, mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private Collection $payments;
+
+    public function __construct()
+    {
+        $this->payments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,15 +111,15 @@ class User
         return $this;
     }
 
-    public function getPayment(): ?PaymentDetails
+    public function getPayments(): Collection
     {
-        return $this->payment;
+        return $this->payments;
     }
 
-    public function setPayment(?PaymentDetails $payment): self
+    public function addPayment(PaymentDetails $paymentDetails): self
     {
-        $payment->setUser($this);
-        $this->payment = $payment;
+        $paymentDetails->setUser($this);
+        $this->payments->add($paymentDetails);
 
         return $this;
     }
